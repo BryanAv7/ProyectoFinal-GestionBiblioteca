@@ -38,18 +38,18 @@ export class PrestamoComponent implements OnInit {
 
   cargarPrestamos() {
     this.libroService.getPrestamos().then(snapshot => {
-      this.prestamos = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as Prestamo));
+      this.prestamos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Prestamo));
     });
   }
 
   cargarLibros() {
     this.libroService.getLibros().then(snapshot => {
-      this.libros = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as Libro));
-      // Actualizar estado de libros sin estado
-      this.libros.forEach(libro => {
+      this.libros = snapshot.docs.map(doc => {
+        const libro = { id: doc.id, ...doc.data() } as Libro;
         if (!libro.estado) {
           libro.estado = 'disponible';
         }
+        return libro;
       });
     });
   }
@@ -59,7 +59,6 @@ export class PrestamoComponent implements OnInit {
     this.libroService.addPrestamo(this.nuevoPrestamo).then(() => {
       this.cargarPrestamos();
       this.cargarLibros();
-      this.nuevoPrestamo = new Prestamo();
     });
   }
 
@@ -71,7 +70,7 @@ export class PrestamoComponent implements OnInit {
   }
 
   getLibroTitulo(libroId: string): string {
-    const libro = this.libros.find(libro => libro.id === libroId);
-    return libro ? libro.titulo : libroId;
+    const libro = this.libros.find(l => l.id === libroId);
+    return libro ? libro.titulo : 'Desconocido';
   }
 }

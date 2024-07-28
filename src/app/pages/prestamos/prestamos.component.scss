@@ -1,64 +1,54 @@
-
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-
 .tabla-container, .form-container {
-    max-width: 750px;
-    margin: 50px auto;
-    padding: 20px;
+    max-width: 600px; /* Reducido el ancho máximo del contenedor */
+    margin: 40px auto; /* Menor margen superior e inferior */
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 6px; /* Radio del borde reducido */
     background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 15px; /* Reducido el relleno interno */
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Menor margen inferior */
 }
 
-
 .form-section, .list-section {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Menor margen inferior para las secciones */
 }
 
 .form-section form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px; /* Menor espacio entre los elementos del formulario */
 }
 
 .form-section label {
-    font-size: 14px;
+    font-size: 12px; /* Fuente más pequeña */
 }
 
 .form-section input,
 .form-section select {
     width: 100%;
-    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
+    padding: 8px; /* Menor relleno interno */
 }
 
 .form-section button {
-    padding: 10px 15px;
+    padding: 8px 12px; /* Menor padding en el botón */
     background-color: #798a18;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 14px; /* Fuente más pequeña */
 }
 
 .form-section button:hover {
     background-color: #667c13;
 }
-
 
 .list-section ul {
     list-style: none;
@@ -68,9 +58,9 @@ h2 {
 
 .list-section li {
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 10px;
+    border-radius: 6px; /* Radio del borde reducido */
+    padding: 8px; /* Menor relleno interno */
+    margin-bottom: 8px; /* Menor margen inferior */
     background-color: #fff;
     display: flex;
     justify-content: space-between;
@@ -78,18 +68,18 @@ h2 {
 }
 
 .list-section button {
-    padding: 5px 10px;
+    padding: 4px 8px; /* Menor padding en el botón */
     background-color: #f44336;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 12px; /* Fuente más pequeña */
 }
 
 .list-section button:hover {
     background-color: #d32f2f;
 }
-
 
 table {
     width: 100%;
@@ -98,8 +88,9 @@ table {
 
 th, td {
     border: 1px solid #ddd;
-    padding: 12px;
+    padding: 8px; /* Menor padding en celdas */
     text-align: center;
+    font-size: 14px; /* Fuente más pequeña */
 }
 
 th {
@@ -113,25 +104,24 @@ td {
     color: #333;
 }
 
-
 .book-details {
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 6px; /* Radio del borde reducido */
     background-color: #fff;
-    margin-bottom: 20px;
-    padding: 10px;
+    margin-bottom: 15px; /* Menor margen inferior */
+    padding: 10px; /* Menor relleno interno */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .book-details img {
-    width: 80px;
-    height: 120px;
+    width: 60px; /* Imagen más pequeña */
+    height: 90px; /* Imagen más pequeña */
     object-fit: cover;
-    border-radius: 5px;
-    margin-right: 20px;
+    border-radius: 4px; /* Radio del borde reducido */
+    margin-right: 15px; /* Menor margen derecho */
 }
 
 .book-details div {
@@ -140,17 +130,16 @@ td {
 
 .book-details h5 {
     margin: 0;
-    font-size: 18px;
+    font-size: 16px; /* Fuente más pequeña */
     color: #333;
 }
 
 .book-details span {
     display: block;
-    font-size: 14px;
+    font-size: 12px; /* Fuente más pequeña */
     color: #666;
-    margin: 2px 0;
+    margin: 1px 0; /* Menor margen vertical */
 }
-
 
 .book-details.borrowed {
     border-color: #f44336; 
@@ -160,7 +149,6 @@ td {
     border-color: #4caf50; 
 }
 
-
 @media (max-width: 600px) {
     .book-details {
         flex-direction: column;
@@ -168,13 +156,15 @@ td {
     }
 
     .book-details img {
+        width: 50px; /* Imagen aún más pequeña */
+        height: 75px; /* Imagen aún más pequeña */
         margin-right: 0;
-        margin-bottom: 10px;
+        margin-bottom: 8px; /* Menor margen inferior */
     }
 
     td, th {
-        padding: 8px;
-        font-size: 14px;
+        padding: 6px; /* Menor padding en celdas */
+        font-size: 12px; /* Fuente más pequeña */
     }
 
     .form-container {
