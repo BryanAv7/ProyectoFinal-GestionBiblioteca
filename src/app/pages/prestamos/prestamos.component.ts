@@ -6,6 +6,7 @@ import { LibroService } from '../../services/libro.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PrestamoService } from '../../services/prestamo.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -20,33 +21,41 @@ export class PrestamoComponent implements OnInit {
   prestamos: Prestamo[] = [];
   libros: Libro[] = [];
   nuevoPrestamo: Prestamo = new Prestamo();
+  usuarioActual: string = '';
 
-  constructor(private libroService: LibroService) { }
+  constructor(private libroService: LibroService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.authState$.subscribe(user => {
+      if (user) {
+        this.usuarioActual = user.displayName || user.email || 'Usuario';
+      }
+    });
+
     this.cargarPrestamos();
     this.cargarLibros();
   }
 
   cargarPrestamos() {
     this.libroService.getPrestamos().then(snapshot => {
-      this.prestamos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Prestamo));
+      this.prestamos = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as Prestamo));
     });
   }
 
   cargarLibros() {
     this.libroService.getLibros().then(snapshot => {
-      this.libros = snapshot.docs.map(doc => {
-        const libro = { id: doc.id, ...doc.data() } as Libro;
+      this.libros = snapshot.docs.map((doc: any) => ({ id: doc.id, ...doc.data() } as Libro));
+      // Actualizar estado de libros sin estado
+      this.libros.forEach(libro => {
         if (!libro.estado) {
           libro.estado = 'disponible';
         }
-        return libro;
       });
     });
   }
 
   registrarPrestamo() {
+    this.nuevoPrestamo.usuarioId = this.usuarioActual;
     this.libroService.addPrestamo(this.nuevoPrestamo).then(() => {
       this.cargarPrestamos();
       this.cargarLibros();
@@ -62,7 +71,7 @@ export class PrestamoComponent implements OnInit {
   }
 
   getLibroTitulo(libroId: string): string {
-    const libro = this.libros.find(l => l.id === libroId);
-    return libro ? libro.titulo : 'Desconocido';
+    const libro = this.libros.find(libro => libro.id === libroId);
+    return libro ? libro.titulo : libroId;
   }
 }

@@ -12,62 +12,50 @@ const PATH_PRESTAMOS = 'prestamos';
 })
 
 export class LibroService {
-
   constructor(private firestore: Firestore) { }
 
-  getLibros() {
+  getLibros(): Promise<any> {
     return getDocs(query(collection(this.firestore, PATH_LIBROS)));
   }
 
-  addLibro(libro: Libro) {
-    return addDoc(collection(this.firestore, PATH_LIBROS), Object.assign({}, libro));
+  addLibro(libro: Libro): Promise<void> {
+    return addDoc(collection(this.firestore, PATH_LIBROS), Object.assign({}, libro)).then(() => {});
   }
 
-  async getLibro(id: string) {
+  async getLibro(id: string): Promise<Libro | undefined> {
     try {
-      const snapshot = await getDoc(this.document(PATH_LIBROS, id));
+      const snapshot = await getDoc(doc(this.firestore, `${PATH_LIBROS}/${id}`));
       return snapshot.data() as Libro;
     } catch (error) {
       return undefined;
     }
   }
 
-  async searchLibroByQuery(name: string) {
+  async searchLibroByQuery(name: string): Promise<any> {
     return getDocs(query(
       collection(this.firestore, PATH_LIBROS),
-      where('titulo', ">=", name),
-      where('titulo', "<=", name + '\uf8ff'),
+      where('titulo', '>=', name),
+      where('titulo', '<=', name + '\uf8ff')
     ));
   }
 
-  updateLibro(id: string, libro: Partial<Libro>) {
-    return updateDoc(this.document(PATH_LIBROS, id), { ...libro });
+  updateLibro(id: string, libro: Partial<Libro>): Promise<void> {
+    return updateDoc(doc(this.firestore, `${PATH_LIBROS}/${id}`), { ...libro });
   }
 
-  deleteLibro(id: string) {
-    return deleteDoc(this.document(PATH_LIBROS, id));
+  deleteLibro(id: string): Promise<void> {
+    return deleteDoc(doc(this.firestore, `${PATH_LIBROS}/${id}`));
   }
 
-  async addPrestamo(prestamo: Prestamo) {
-    const libroDoc = this.document(PATH_LIBROS, prestamo.libroId);
-    await updateDoc(libroDoc, { estado: 'prestado' });
-    return addDoc(collection(this.firestore, PATH_PRESTAMOS), Object.assign({}, prestamo));
-  }
-
-  getPrestamos() {
+  getPrestamos(): Promise<any> {
     return getDocs(query(collection(this.firestore, PATH_PRESTAMOS)));
   }
 
-  async registrarDevolucion(prestamoId: string) {
-    const docSnapshot = await getDoc(this.document(PATH_PRESTAMOS, prestamoId));
-    const prestamo = docSnapshot.data() as Prestamo;
-    if (prestamo) {
-      await this.updateLibro(prestamo.libroId, { estado: 'disponible' });
-      await deleteDoc(this.document(PATH_PRESTAMOS, prestamoId));
-    }
+  addPrestamo(prestamo: Prestamo): Promise<void> {
+    return addDoc(collection(this.firestore, PATH_PRESTAMOS), Object.assign({}, prestamo)).then(() => {});
   }
 
-  private document(collectionPath: string, id: string) {
-    return doc(this.firestore, `${collectionPath}/${id}`);
+  registrarDevolucion(id: string): Promise<void> {
+    return updateDoc(doc(this.firestore, `${PATH_PRESTAMOS}/${id}`), { estado: 'devuelto' });
   }
 }

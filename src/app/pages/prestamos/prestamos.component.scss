@@ -1,104 +1,184 @@
-/* estilos.css */
 
 html, body {
     height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #e9f5e9; /* Fondo verde claro */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: #f4f4f4;
 }
 
-.container {
-    max-width: 100%;
-    width: 90%;
-    margin: 20px auto;
+
+.tabla-container, .form-container {
+    max-width: 750px;
+    margin: 50px auto;
     padding: 20px;
-    border: 1px solid green;
-    border-radius: 5px;
-    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
     text-align: center;
-    font-size: 1.5em;
-    color: #2e7d32; /* Verde oscuro */
-}
-
-form {
     margin-bottom: 20px;
 }
 
-select, input[type="text"], input[type="date"], button {
-    display: block;
-    width: calc(100% - 22px); /* Reduce el ancho total */
+
+.form-section, .list-section {
+    margin-bottom: 20px;
+}
+
+.form-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-section label {
+    font-size: 14px;
+}
+
+.form-section input,
+.form-section select {
+    width: 100%;
     padding: 10px;
-    margin: 0 auto 10px; /* Centra el elemento horizontalmente */
-    border: 1px solid green;
-    border-radius: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     box-sizing: border-box;
 }
 
-button {
-    background-color: #2e7d32;
+.form-section button {
+    padding: 10px 15px;
+    background-color: #798a18;
     color: #fff;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    padding: 10px;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #1b5e20;
+.form-section button:hover {
+    background-color: #667c13;
 }
 
-ul {
-    list-style-type: none;
+
+.list-section ul {
+    list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-li {
-    border-bottom: 1px solid green;
-    padding: 10px 0;
+.list-section li {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-li button {
-    background-color: #d32f2f;
+.list-section button {
+    padding: 5px 10px;
+    background-color: #f44336;
     color: #fff;
     border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-li button:hover {
-    background-color: #b71c1c;
+.list-section button:hover {
+    background-color: #d32f2f;
 }
 
-/* Media Queries */
-@media (min-width: 768px) {
-    .container {
-        max-width: 750px;
-    }
 
-    select, input[type="text"], input[type="date"], button {
-        width: calc(50% - 22px); /* Reduce el ancho total */
-    }
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-@media (max-width: 767px) {
-    li {
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #798a18;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+
+.book-details {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.book-details img {
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.book-details div {
+    flex: 1;
+}
+
+.book-details h5 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.book-details span {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin: 2px 0;
+}
+
+
+.book-details.borrowed {
+    border-color: #f44336; 
+}
+
+.book-details.available {
+    border-color: #4caf50; 
+}
+
+
+@media (max-width: 600px) {
+    .book-details {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    li button {
-        margin-top: 10px;
+    .book-details img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    td, th {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .form-container {
+        margin: 20px auto;
+        padding: 10px;
     }
 }
