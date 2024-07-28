@@ -1,0 +1,164 @@
+/* Reseteo de márgenes y padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Wrapper para contenido y footer */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Contenido principal de la página */
+.content {
+    flex: 1;
+}
+
+/* Estilos: Pie de la Página */
+.piepagina {
+    width: 100%;
+    background-color: #757575;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.piepagina .part1 {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    padding: 15px 0px;
+}
+
+.piepagina .part1 .box {
+    text-align: center;
+}
+
+.piepagina .part1 .box figure {
+    width: 80%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.piepagina .part1 .box figure img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.piepagina .part1 .box h2 {
+    color: #fff;
+    margin-bottom: 15px; /* Reducido el margen para dispositivos más pequeños */
+    font-size: 18px; /* Reducido el tamaño para dispositivos más pequeños */
+}
+
+.piepagina .part1 .redsocial {
+    text-align: center;
+}
+
+.piepagina .part1 .redsocial a {
+    display: inline-block;
+    text-decoration: none;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #454545;
+    text-align: center;
+    transition: all 300ms ease;
+}
+
+.piepagina .part1 .redsocial a:hover {
+    color: black;
+}
+
+.piepagina .part2 {
+    background-color: #454545;
+    padding: 10px 0;
+    text-align: center;
+    color: #fff;
+}
+
+.piepagina .part2 small {
+    font-size: 13px;
+}
+
+/* Media query para dispositivos móviles */
+@media screen and (max-width: 800px) {
+    .piepagina .part1 {
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 15px; /* Reducido el espacio entre las columnas para dispositivos más pequeños */
+        padding: 10px 0; /* Ajustado el relleno para dispositivos más pequeños */
+    }
+
+    .piepagina .part1 .box figure img {
+        max-width: 150px; /* Reducido el tamaño de la imagen para dispositivos más pequeños */
+    }
+
+    .piepagina .part1 .box h2 {
+        font-size: 16px; /* Reducido el tamaño del título para dispositivos más pequeños */
+    }
+
+    .piepagina .part1 .redsocial a {
+        width: 30px; /* Reducido el tamaño de los iconos para dispositivos más pequeños */
+        height: 30px; /* Reducido el tamaño de los iconos para dispositivos más pequeños */
+        line-height: 30px; /* Reducido el tamaño de los iconos para dispositivos más pequeños */
+        margin-right: 3px; /* Reducido el margen para dispositivos más pequeños */
+        margin-bottom: 3px; /* Reducido el margen para dispositivos más pequeños */
+    }
+
+    .piepagina .part2 small {
+        font-size: 11px; /* Reducido el tamaño del texto para dispositivos más pequeños */
+    }
+
+    /* Estilos específicos para versiones de celular */
+    .piepagina {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+    }
+}
+
+
+
+
+nav {
+    background-color: rgb(93, 89, 89);
+    padding: 10px;
+    display: inline-flex;
+    list-style: none;
+}
+
+nav .izq {
+    position: absolute;
+
+    left: 15px;
+}
+
+nav .der {
+    position: absolute;
+
+    right: 15px;
+}
+nav button {
+    color: white;
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background-color: rgba(9, 8, 8, 0.1);
+}

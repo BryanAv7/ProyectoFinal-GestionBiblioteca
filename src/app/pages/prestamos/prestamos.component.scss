@@ -1,0 +1,104 @@
+/* estilos.css */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e9f5e9; /* Fondo verde claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    max-width: 100%;
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: white;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.5em;
+    color: #2e7d32; /* Verde oscuro */
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+select, input[type="text"], input[type="date"], button {
+    display: block;
+    width: calc(100% - 22px); /* Reduce el ancho total */
+    padding: 10px;
+    margin: 0 auto 10px; /* Centra el elemento horizontalmente */
+    border: 1px solid green;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #2e7d32;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1b5e20;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    border-bottom: 1px solid green;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li button {
+    background-color: #d32f2f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+li button:hover {
+    background-color: #b71c1c;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+    .container {
+        max-width: 750px;
+    }
+
+    select, input[type="text"], input[type="date"], button {
+        width: calc(50% - 22px); /* Reduce el ancho total */
+    }
+}
+
+@media (max-width: 767px) {
+    li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    li button {
+        margin-top: 10px;
+    }
+}

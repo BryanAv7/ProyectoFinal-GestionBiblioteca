@@ -1,0 +1,114 @@
+.tabla-container {
+  max-width: 100%;
+  width: 90%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.tabla-container h2 {
+  text-align: center;
+  font-size: 1.5em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+td,
+th {
+  border: 1px solid green;
+  padding: 10px;
+  width: 100%;
+}
+
+th {
+  background: #798a18;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+td {
+  text-align: center;
+  border-bottom: 2px solid greenyellow;
+  color: #333;
+  font-size: 16px;
+}
+
+.buscacontainer {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.buscacontainer input {
+  width: 70%;
+  max-width: 300px;
+  height: 30px;
+}
+
+.buscacontainer button {
+  background-color: #1c1cbd;
+  color: white;
+  padding: 6px 15px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  .tabla-container {
+    max-width: 750px;
+  }
+
+  td,
+  th {
+    width: 300px;
+  }
+
+  .buscacontainer input {
+    width: 50%;
+  }
+}
+
+@media (max-width: 767px) {
+
+  td,
+  th {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid greenyellow;
+  }
+
+  th {
+    display: none;
+  }
+
+  tr {
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+nav {
+  background-color: rgb(93, 89, 89);
+  padding: 10px;
+  display: inline-flex;
+  list-style: none;
+  max-width: 100%;
+}
