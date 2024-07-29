@@ -79,4 +79,8 @@ export class BibliotecaComponent implements OnInit {
   irRegistro() {
     this.router.navigate(['/registro']);
   }
+
+  reservar() {
+    this.router.navigate(['/prestamos']);
+  }
 }

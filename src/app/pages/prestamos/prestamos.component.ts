@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { PrestamoService } from '../../services/prestamo.service';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +25,11 @@ export class PrestamoComponent implements OnInit {
   nuevoPrestamo: Prestamo = new Prestamo();
   usuarioActual: string = '';
 
-  constructor(private libroService: LibroService, private authService: AuthService) { }
+  constructor(
+    private libroService: LibroService,
+    private authService: AuthService,
+    private router: Router 
+  ) { }
 
   ngOnInit(): void {
     this.authService.authState$.subscribe(user => {
@@ -81,5 +86,9 @@ export class PrestamoComponent implements OnInit {
     if (form) {
       form.resetForm();
     }
+  }
+
+  regresar() {
+    this.router.navigate(['/biblioteca']);
   }
 }

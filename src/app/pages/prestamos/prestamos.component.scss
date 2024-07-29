@@ -36,9 +36,9 @@ h2 {
     padding: 8px;
 }
 
-.form-section .button-container {
+.form-section .button-row {
     display: flex;
-    gap: 10px; 
+    gap: 15px; 
 }
 
 .form-section button {
@@ -49,11 +49,20 @@ h2 {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    flex: 1; 
+    flex: 1;
 }
 
 .form-section button:hover {
     background-color: #667c13;
+}
+
+
+.form-section button.regresar {
+    background-color: #f44336; 
+}
+
+.form-section button.regresar:hover {
+    background-color: #d32f2f;
 }
 
 .list-section ul {
@@ -178,7 +187,7 @@ td {
         padding: 10px;
     }
 
-    .form-section .button-container {
+    .form-section .button-row {
         flex-direction: column;
     }
 }
