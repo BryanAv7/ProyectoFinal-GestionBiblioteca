@@ -1,20 +1,56 @@
 <div class="historial-container">
     <h2>Historial de Préstamos</h2>
     <table>
-        <tr>
-            <th>Libro</th>
-            <th>Usuario</th>
-            <th>Fecha de Préstamo</th>
-            <th>Fecha de Devolución</th>
-            <th>Estado</th>
-        </tr>
-        <tr *ngFor="let prestamo of prestamos">
-            <td>{{ getLibroTitulo(prestamo.libroId) }}</td>
-            <td>{{ prestamo.usuarioId }}</td>
-            <td>{{ prestamo.fechaPrestamo | date:'shortDate' }}</td>
-            <td>{{ prestamo.fechaDevolucion ? (prestamo.fechaDevolucion | date:'shortDate') : 'No devuelto' }}</td>
-            <td>{{ prestamo.devuelto ? 'Devuelto' : 'En préstamo' }}</td>
-        </tr>
+      <tr>
+        <th>Libro</th>
+        <th>Usuario</th>
+        <th>Fecha de Préstamo</th>
+        <th>Fecha de Devolución</th>
+        <th>Estado</th>
+      </tr>
+      <tr *ngFor="let prestamo of librosDevueltos">
+        <td>{{ getLibroTitulo(prestamo.libroId) }}</td>
+        <td>{{ prestamo.usuarioId }}</td>
+        <td>{{ prestamo.fechaPrestamo | date:'shortDate' }}</td>
+        <td>{{ prestamo.fechaDevolucion ? (prestamo.fechaDevolucion | date:'shortDate') : 'No devuelto' }}</td>
+        <td>{{ prestamo.devuelto ? 'Devuelto' : 'En préstamo' }}</td>
+      </tr>
     </table>
-</div>
-
+  </div>
+  
+  <div class="reportes-container">
+    <h2>Reportes</h2>
+    
+    <div class="reporte">
+      <h3 class="reporte-title">Libros que aún no están devueltos</h3>
+      <table>
+        <tr>
+          <th>Libro</th>
+          <th>Usuario</th>
+          <th>Fecha de Préstamo</th>
+          <th>Estado</th>
+        </tr>
+        <tr *ngFor="let prestamo of librosNoDevueltos">
+          <td>{{ getLibroTitulo(prestamo.libroId) }}</td>
+          <td>{{ prestamo.usuarioId }}</td>
+          <td>{{ prestamo.fechaPrestamo | date:'shortDate' }}</td>
+          <td>{{ 'En préstamo' }}</td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="reporte">
+      <h3 class="reporte-title">Libros que más fueron prestados</h3>
+      <table>
+        <tr>
+          <th>Libro</th>
+          <th>Cantidad de Préstamos</th>
+        </tr>
+        <tr *ngFor="let reporte of librosMasPrestados">
+          <td>{{ getLibroTitulo(reporte.libroId) }}</td>
+          <td>{{ reporte.cantidad }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  

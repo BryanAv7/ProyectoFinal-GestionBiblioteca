@@ -37,14 +37,77 @@
     color: #333;
   }
   
+  .reportes-container {
+    max-width: 800px;
+    margin: 40px auto;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+  }
+  
+  .reportes-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .reporte {
+    margin-bottom: 20px;
+  }
+  
+  .reporte h3.reporte-title {
+    color: black;
+    text-align: left;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .reporte h3.reporte-title::before {
+    content: "";
+    width: 5px;
+    height: 100%;
+    background-color: red;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  .reporte table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .reporte th, 
+  .reporte td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .reporte th {
+    background-color: #798a18;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  
+  .reporte td {
+    border-bottom: 1px solid #ddd;
+    color: #333;
+  }
+  
   @media (max-width: 600px) {
-    .historial-container {
+    .historial-container, .reportes-container {
       margin: 20px auto;
       padding: 10px;
     }
     
     .historial-container th, 
-    .historial-container td {
+    .historial-container td, 
+    .reporte th, 
+    .reporte td {
       font-size: 12px;
       padding: 6px;
     }
