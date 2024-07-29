@@ -61,10 +61,11 @@ export class LibroService {
     const docSnapshot = await getDoc(this.document(PATH_PRESTAMOS, prestamoId));
     const prestamo = docSnapshot.data() as Prestamo;
     if (prestamo) {
-      await this.updateLibro(prestamo.libroId, { estado: 'disponible' });
-      await deleteDoc(this.document(PATH_PRESTAMOS, prestamoId));
+        await this.updateLibro(prestamo.libroId, { estado: 'disponible' });
+        // Marca el préstamo como devuelto en lugar de eliminarlo
+        await updateDoc(this.document(PATH_PRESTAMOS, prestamoId), { devuelto: true });
     }
-  }
+}
 
   private document(collectionPath: string, id: string) {
     return doc(this.firestore, `${collectionPath}/${id}`);

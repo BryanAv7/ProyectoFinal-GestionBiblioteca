@@ -4,5 +4,5 @@ export class Prestamo {
     usuarioId!: string;
     fechaPrestamo: Date = new Date();
     fechaDevolucion?: Date;
-    
+    devuelto: boolean = false; 
 }

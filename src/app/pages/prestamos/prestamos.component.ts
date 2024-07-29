@@ -45,7 +45,9 @@ export class PrestamoComponent implements OnInit {
 
   cargarPrestamos() {
     this.libroService.getPrestamos().then(snapshot => {
-      this.prestamos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Prestamo));
+      this.prestamos = snapshot.docs
+        .map(doc => ({ id: doc.id, ...doc.data() } as Prestamo))
+        .filter(prestamo => !prestamo.devuelto); 
     });
   }
 
@@ -72,7 +74,9 @@ export class PrestamoComponent implements OnInit {
 
   devolverLibro(prestamo: Prestamo) {
     this.libroService.registrarDevolucion(prestamo.id).then(() => {
-      this.cargarPrestamos();
+      
+      this.prestamos = this.prestamos.filter(p => p.id !== prestamo.id);
+      
       this.cargarLibros();
     });
   }

@@ -1,1 +1,20 @@
-<p>historial works!</p>
+<div class="historial-container">
+    <h2>Historial de Préstamos</h2>
+    <table>
+        <tr>
+            <th>Libro</th>
+            <th>Usuario</th>
+            <th>Fecha de Préstamo</th>
+            <th>Fecha de Devolución</th>
+            <th>Estado</th>
+        </tr>
+        <tr *ngFor="let prestamo of prestamos">
+            <td>{{ getLibroTitulo(prestamo.libroId) }}</td>
+            <td>{{ prestamo.usuarioId }}</td>
+            <td>{{ prestamo.fechaPrestamo | date:'shortDate' }}</td>
+            <td>{{ prestamo.fechaDevolucion ? (prestamo.fechaDevolucion | date:'shortDate') : 'No devuelto' }}</td>
+            <td>{{ prestamo.devuelto ? 'Devuelto' : 'En préstamo' }}</td>
+        </tr>
+    </table>
+</div>
+
