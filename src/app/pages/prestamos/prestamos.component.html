@@ -1,9 +1,12 @@
 <div class="form-container">
   <div class="form-section">
     <h2>Registro de Préstamos</h2>
-    <form (ngSubmit)="registrarPrestamo()">
+    <form (ngSubmit)="registrarPrestamo()" #prestamoForm="ngForm">
       <label for="fechaPrestamo">Fecha de Préstamo</label>
       <input id="fechaPrestamo" type="date" [(ngModel)]="nuevoPrestamo.fechaPrestamo" name="fechaPrestamo" required>
+
+      <label for="fechaDevolucion">Fecha de Devolución</label>
+      <input id="fechaDevolucion" type="date" [(ngModel)]="nuevoPrestamo.fechaDevolucion" name="fechaDevolucion">
 
       <label for="libroId">Libro</label>
       <select id="libroId" [(ngModel)]="nuevoPrestamo.libroId" name="libroId" required>
@@ -12,7 +15,10 @@
         </option>
       </select>
 
-      <button type="submit">Registrar Préstamo</button>
+      <div class="button-container">
+        <button type="submit">Registrar Préstamo</button>
+        <button type="button" (click)="limpiarCampos(prestamoForm)">Limpiar Campos</button>
+      </div>
     </form>
   </div>
 
@@ -20,7 +26,7 @@
     <h2>Lista de Préstamos</h2>
     <ul>
       <li *ngFor="let prestamo of prestamos">
-        {{ getLibroTitulo(prestamo.libroId) }} - {{ prestamo.usuarioId }} - {{ prestamo.fechaPrestamo | date:'shortDate' }}
+        {{ getLibroTitulo(prestamo.libroId) }} - {{ prestamo.usuarioId }} - {{ prestamo.fechaPrestamo | date:'shortDate' }} - {{ prestamo.fechaDevolucion | date:'shortDate' }}
         <button (click)="devolverLibro(prestamo)">Devolver</button>
       </li>
     </ul>
@@ -41,3 +47,4 @@
       <span>Estado: {{ libro.estado }}</span>
     </div>
   </div>
+</div>

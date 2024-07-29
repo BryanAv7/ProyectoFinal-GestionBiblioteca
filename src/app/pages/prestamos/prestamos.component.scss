@@ -1,4 +1,4 @@
-.tabla-container, .form-container {
+.form-container, .tabla-container {
     max-width: 600px;
     margin: 40px auto;
     border: 1px solid #ddd;
@@ -36,6 +36,11 @@ h2 {
     padding: 8px;
 }
 
+.form-section .button-container {
+    display: flex;
+    gap: 10px; 
+}
+
 .form-section button {
     padding: 8px 12px;
     background-color: #798a18;
@@ -44,6 +49,7 @@ h2 {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    flex: 1; 
 }
 
 .form-section button:hover {
@@ -170,5 +176,9 @@ td {
     .form-container {
         margin: 20px auto;
         padding: 10px;
+    }
+
+    .form-section .button-container {
+        flex-direction: column;
     }
 }

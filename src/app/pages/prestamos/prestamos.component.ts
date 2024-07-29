@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PrestamoService } from '../../services/prestamo.service';
 import { AuthService } from '../../services/auth.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -59,6 +60,7 @@ export class PrestamoComponent implements OnInit {
     this.libroService.addPrestamo(this.nuevoPrestamo).then(() => {
       this.cargarPrestamos();
       this.cargarLibros();
+      this.limpiarCampos();
     });
   }
 
@@ -72,5 +74,12 @@ export class PrestamoComponent implements OnInit {
   getLibroTitulo(libroId: string): string {
     const libro = this.libros.find(l => l.id === libroId);
     return libro ? libro.titulo : 'Desconocido';
+  }
+
+  limpiarCampos(form?: NgForm) {
+    this.nuevoPrestamo = new Prestamo();
+    if (form) {
+      form.resetForm();
+    }
   }
 }

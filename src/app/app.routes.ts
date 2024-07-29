@@ -9,6 +9,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { BiblioadminComponent } from './pages/biblioadmin/biblioadmin.component';
 import { EditusadminComponent } from './pages/editusadmin/editusadmin.component';
 import { PrestamoComponent } from './pages/prestamos/prestamos.component';
+import { HistorialComponent } from './pages/historial/historial.component';
 
 
 export const routes: Routes = [
@@ -23,5 +24,6 @@ export const routes: Routes = [
   { path: 'editalibro/:libroId', title: 'Editar libro', component: CrealibroComponent },
   { path: 'edituser/:userId', title: 'Editar usuario', component: EdituserComponent },
   { path: 'edituseradmin/:userId', title: 'Editar usuario', component: EditusadminComponent },
-  { path: 'prestamos', title: 'Gestión de Préstamos', component: PrestamoComponent }
+  { path: 'prestamos', title: 'Gestión de Préstamos', component: PrestamoComponent },
+  { path: 'historial', title: 'Historial de Préstamos', component: HistorialComponent }
 ];
