@@ -81,10 +81,22 @@ button[type="submit"] app-icon-rocket {
         margin-right: 5px;
     }
 }
+
 nav {
     background-color: rgb(93, 89, 89);
     padding: 10px;
     display: inline-flex;
     list-style: none;
     max-width: 100%;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 20px; 
+}
+
+.button-container button {
+    margin: 0 10px; 
 }

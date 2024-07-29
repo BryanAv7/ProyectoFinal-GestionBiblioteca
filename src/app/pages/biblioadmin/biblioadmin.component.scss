@@ -62,29 +62,57 @@ td img {
 .buscacontainer {
     margin-bottom: 1%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.search-row,
+.filter-row {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 
-.buscacontainer input {
-    width: 70%;
-    height: 25px;
-    margin-bottom: 5px;
+.search-row input,
+.filter-row select {
+    width: 350px;
+    height: 30px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
-.buscacontainer button {
+.button-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.button-row button {
     background-color: #1c1cbd;
     color: white;
     padding: 6px 15px;
-    margin-left: 5%;
+    margin: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    height: 30px;
+    display: flex;
+    align-items: center;
 }
 
-.buscacontainer button:hover {
+.button-row button:hover {
     background-color: #45a049;
+}
+
+.button-row .reservar-btn {
+    background-color: #f44336; 
+    color: white;
+}
+
+.button-row .reservar-btn:hover {
+    background-color: #d32f2f; 
 }
 
 /* Navigation */
@@ -107,14 +135,11 @@ nav {
         font-size: 1.5em;
     }
 
-    .buscacontainer input {
+    .buscacontainer input,
+    .buscacontainer select,
+    .buscacontainer button {
         width: 100%;
         margin-bottom: 10px;
-    }
-
-    .buscacontainer button {
-        margin-left: 0;
-        width: 100%;
     }
 
     td, th {

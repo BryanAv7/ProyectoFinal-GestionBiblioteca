@@ -34,4 +34,8 @@ export class HeaderComponent {
   irHistorial() {
     this.router.navigate(['/historial']);
   }
+
+  irCreaLibro() {
+    this.router.navigate(['/crealibro']);
+  }
 }
