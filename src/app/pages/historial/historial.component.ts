@@ -5,11 +5,14 @@ import { Prestamo } from '../../../domain/prestamo';
 import { Libro } from '../../../domain/libro';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
+import { HeaderComponent } from '../../header/header.component';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-historial',
   standalone: true,
-  imports: [NgFor, CommonModule],
+  imports: [NgFor, CommonModule, HeaderComponent],
   templateUrl: './historial.component.html',
   styleUrl: './historial.component.scss'
 })
@@ -20,7 +23,7 @@ export class HistorialComponent implements OnInit {
   librosNoDevueltos: Prestamo[] = [];
   librosMasPrestados: { libroId: string, cantidad: number }[] = [];
 
-  constructor(private libroService: LibroService) { }
+  constructor(private libroService: LibroService, private router: Router) { }
 
   ngOnInit(): void {
     this.cargarHistorial();
@@ -62,5 +65,9 @@ export class HistorialComponent implements OnInit {
       libroId,
       cantidad: prestamoCount[libroId]
     })).sort((a, b) => b.cantidad - a.cantidad);
+  }
+
+  volver() {
+    this.router.navigate(['/biblioteca']); 
   }
 }

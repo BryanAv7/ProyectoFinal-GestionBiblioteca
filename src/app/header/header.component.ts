@@ -31,4 +31,7 @@ export class HeaderComponent {
     this.router.navigate(['/biblioadmin']);
   }
 
+  irHistorial() {
+    this.router.navigate(['/historial']);
+  }
 }
