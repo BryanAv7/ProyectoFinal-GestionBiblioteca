@@ -1,4 +1,3 @@
-/* General Styles */
 html, body {
     height: 100%;
     margin: 0;
@@ -6,7 +5,6 @@ html, body {
     background-color: #f4f4f4;
 }
 
-/* Container */
 .tabla-container {
     max-width: 750px;
     margin: 50px auto;
@@ -17,7 +15,6 @@ html, body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Table Wrapper for Centering */
 .table-wrapper {
     display: flex;
     justify-content: center;
@@ -50,44 +47,60 @@ td {
     font-size: 18px;
 }
 
-/* Image Styles */
 td img {
-    max-width: 80px; /* Adjust size as needed */
-    max-height: 120px; /* Adjust size as needed */
+    max-width: 80px;
+    max-height: 120px;
     object-fit: cover;
     border-radius: 5px;
 }
 
-/* Search Container */
 .buscacontainer {
     margin-bottom: 1%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.search-row,
+.filter-row {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 
-.buscacontainer input {
-    width: 70%;
-    height: 25px;
-    margin-bottom: 5px;
+.search-row input,
+.filter-row select {
+    width: 350px;
+    height: 30px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
-.buscacontainer button {
+.button-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.button-row button {
     background-color: #1c1cbd;
     color: white;
     padding: 6px 15px;
-    margin-left: 5%;
+    margin: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    height: 30px;
+    display: flex;
+    align-items: center;
 }
 
-.buscacontainer button:hover {
+.button-row button:hover {
     background-color: #45a049;
 }
 
-/* Navigation */
 nav {
     background-color: rgb(93, 89, 89);
     padding: 10px;
@@ -96,7 +109,6 @@ nav {
     max-width: 100%;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
     .tabla-container {
         margin: 20px auto;
@@ -107,16 +119,13 @@ nav {
         font-size: 1.5em;
     }
 
-    .buscacontainer input {
+    .buscacontainer input,
+    .buscacontainer select,
+    .buscacontainer button {
         width: 100%;
         margin-bottom: 10px;
     }
-
-    .buscacontainer button {
-        margin-left: 0;
-        width: 100%;
-    }
-
+    
     td, th {
         padding: 5px;
         font-size: 14px;
