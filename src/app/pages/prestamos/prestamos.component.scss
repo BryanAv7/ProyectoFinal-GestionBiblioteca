@@ -6,42 +6,42 @@
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 15px;
-}
-
-h2 {
+  }
+  
+  h2 {
     text-align: center;
     margin-bottom: 15px;
-}
-
-.form-section, .list-section {
+  }
+  
+  .form-section, .list-section {
     margin-bottom: 15px;
-}
-
-.form-section form {
+  }
+  
+  .form-section form {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-.form-section label {
+  }
+  
+  .form-section label {
     font-size: 12px;
-}
-
-.form-section input,
-.form-section select {
+  }
+  
+  .form-section input,
+  .form-section select {
     width: 100%;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
     padding: 8px;
-}
-
-.form-section .button-row {
+  }
+  
+  .form-section .button-row {
     display: flex;
-    gap: 15px; 
-}
-
-.form-section button {
+    gap: 10px; 
+  }
+  
+  .form-section button {
     padding: 8px 12px;
     background-color: #798a18;
     color: #fff;
@@ -49,29 +49,28 @@ h2 {
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    flex: 1;
-}
-
-.form-section button:hover {
+    flex: 1; 
+  }
+  
+  .form-section button:hover {
     background-color: #667c13;
-}
-
-
-.form-section button.regresar {
-    background-color: #f44336; 
-}
-
-.form-section button.regresar:hover {
+  }
+  
+  .form-section .regresar {
+    background-color: #f44336;
+  }
+  
+  .form-section .regresar:hover {
     background-color: #d32f2f;
-}
-
-.list-section ul {
+  }
+  
+  .list-section ul {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.list-section li {
+  }
+  
+  .list-section li {
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 8px;
@@ -80,9 +79,9 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.list-section button {
+  }
+  
+  .list-section button {
     padding: 4px 8px;
     background-color: #f44336;
     color: #fff;
@@ -90,36 +89,36 @@ h2 {
     border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
-}
-
-.list-section button:hover {
+  }
+  
+  .list-section button:hover {
     background-color: #d32f2f;
-}
-
-table {
+  }
+  
+  .table {
     width: 100%;
     border-collapse: collapse;
-}
-
-th, td {
+  }
+  
+  th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
     font-size: 14px;
-}
-
-th {
+  }
+  
+  th {
     background-color: #798a18;
     color: #fff;
     text-transform: uppercase;
-}
-
-td {
+  }
+  
+  td {
     border-bottom: 1px solid #ddd;
     color: #333;
-}
-
-.book-details {
+  }
+  
+  .book-details {
     border: 1px solid #ddd;
     border-radius: 6px;
     background-color: #fff;
@@ -129,65 +128,72 @@ td {
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.book-details img {
+  }
+  
+  .book-details img {
     width: 60px;
     height: 90px;
     object-fit: cover;
     border-radius: 4px;
     margin-right: 15px;
-}
-
-.book-details div {
+  }
+  
+  .book-details div {
     flex: 1;
-}
-
-.book-details h5 {
+  }
+  
+  .book-details h5 {
     margin: 0;
     font-size: 16px;
     color: #333;
-}
-
-.book-details span {
+  }
+  
+  .book-details span {
     display: block;
     font-size: 12px;
     color: #666;
     margin: 1px 0;
-}
-
-.book-details.borrowed {
+  }
+  
+  .book-details.borrowed {
     border-color: #f44336;
-}
-
-.book-details.available {
+  }
+  
+  .book-details.available {
     border-color: #4caf50;
-}
-
-@media (max-width: 600px) {
+  }
+  
+  @media (max-width: 600px) {
     .book-details {
-        flex-direction: column;
-        align-items: flex-start;
+      flex-direction: column;
+      align-items: flex-start;
     }
-
+  
     .book-details img {
-        width: 50px;
-        height: 75px;
-        margin-right: 0;
-        margin-bottom: 8px;
+      width: 50px;
+      height: 75px;
+      margin-right: 0;
+      margin-bottom: 8px;
     }
-
+  
     td, th {
-        padding: 6px;
-        font-size: 12px;
+      padding: 6px;
+      font-size: 12px;
     }
-
+  
     .form-container {
-        margin: 20px auto;
-        padding: 10px;
+      margin: 20px auto;
+      padding: 10px;
     }
-
+  
     .form-section .button-row {
-        flex-direction: column;
+      flex-direction: column;
     }
-}
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  

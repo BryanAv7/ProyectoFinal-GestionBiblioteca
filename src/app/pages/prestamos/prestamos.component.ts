@@ -24,6 +24,7 @@ export class PrestamoComponent implements OnInit {
   libros: Libro[] = [];
   nuevoPrestamo: Prestamo = new Prestamo();
   usuarioActual: string = '';
+  fechaDevolucionInvalida: boolean = false;
 
   constructor(
     private libroService: LibroService,
@@ -90,5 +91,13 @@ export class PrestamoComponent implements OnInit {
 
   regresar() {
     this.router.navigate(['/biblioteca']);
+  }
+
+  validarFechas() {
+    if (this.nuevoPrestamo.fechaPrestamo && this.nuevoPrestamo.fechaDevolucion) {
+      const fechaPrestamo = new Date(this.nuevoPrestamo.fechaPrestamo);
+      const fechaDevolucion = new Date(this.nuevoPrestamo.fechaDevolucion);
+      this.fechaDevolucionInvalida = fechaDevolucion < fechaPrestamo;
+    }
   }
 }

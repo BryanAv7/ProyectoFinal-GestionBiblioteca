@@ -6,7 +6,11 @@
       <input id="fechaPrestamo" type="date" [(ngModel)]="nuevoPrestamo.fechaPrestamo" name="fechaPrestamo" required>
 
       <label for="fechaDevolucion">Fecha de Devolución</label>
-      <input id="fechaDevolucion" type="date" [(ngModel)]="nuevoPrestamo.fechaDevolucion" name="fechaDevolucion">
+      <input id="fechaDevolucion" type="date" [(ngModel)]="nuevoPrestamo.fechaDevolucion" name="fechaDevolucion" (change)="validarFechas()">
+
+      <div *ngIf="fechaDevolucionInvalida" class="error-message">
+        La fecha de devolución no puede ser menor a la fecha de préstamo.
+      </div>
 
       <label for="libroId">Libro</label>
       <select id="libroId" [(ngModel)]="nuevoPrestamo.libroId" name="libroId" required>
@@ -16,7 +20,7 @@
       </select>
 
       <div class="button-row">
-        <button type="submit">Registrar Préstamo</button>
+        <button type="submit" [disabled]="fechaDevolucionInvalida">Registrar Préstamo</button>
         <button type="button" (click)="regresar()" class="regresar">Regresar</button>
       </div>
     </form>
