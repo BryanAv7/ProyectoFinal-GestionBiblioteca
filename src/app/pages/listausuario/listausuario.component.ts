@@ -6,59 +6,62 @@ import { Router } from '@angular/router';
 import { IconEdit } from '../../icons/edit';
 import { AsyncPipe } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, IconEdit, AsyncPipe, HeaderComponent],
+  imports: [FormsModule, ReactiveFormsModule, IconEdit, AsyncPipe, HeaderComponent, NgFor],
   templateUrl: './listausuario.component.html',
   styleUrls: ['./listausuario.component.scss']
 })
-export class listausuario implements OnInit {
+export class ListaUsuarioComponent implements OnInit {
 
-  users: any[] = []
-  buscateste: string = ''
+  users: any[] = [];
+  buscateste: string = '';
 
-  constructor(private userservices: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.userservices.getUsers().then(data => {
-
+    this.userService.getUsers().then(data => {
       this.users = data.docs.map((doc: any) => {
-        console.log(doc.id)
-        console.log(doc.data())
+        console.log(doc.id);
+        console.log(doc.data());
         return {
           id: doc.id,
           ...doc.data()
-        }
-      })
-
-      console.log('Users', this.users)
-    })
+        };
+      });
+      console.log('Users', this.users);
+    });
   }
 
   async changeQuery() {
-    console.log(this.buscateste)
+    console.log(this.buscateste);
     try {
-      await this.userservices.searchUserByQuery(this.buscateste).then(data => {
-
+      await this.userService.searchUserByQuery(this.buscateste).then(data => {
         this.users = data.docs.map((doc: any) => {
           return {
             id: doc.id,
             ...doc.data()
-          }
-        })
-        console.log('usuarios', this.users)
+          };
+        });
+        console.log('Usuarios', this.users);
       });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
+
   editUser(user: User) {
     this.router.navigate(['/edituseradmin', user.id]);
   }
 
   volver() {
     this.router.navigate(['/biblioteca']);
+  }
+
+  trackById(index: number, user: any): string {
+    return user.id;
   }
 }

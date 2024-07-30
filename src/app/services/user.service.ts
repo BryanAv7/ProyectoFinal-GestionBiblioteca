@@ -24,6 +24,7 @@ export class UserService {
       const snapshot = await getDoc(doc(this.firestore, `${PATH}/${id}`));
       return snapshot.data() as User;
     } catch (error) {
+      console.error('Error al obtener usuario:', error);
       return undefined;
     }
   }
@@ -31,16 +32,16 @@ export class UserService {
   async searchUserUnico(name: string) {
     return getDocs(query(
       collection(this.firestore, PATH),
-      where('correo', ">=", name),
-      where('correo', "<=", name + '\uf8ff'),
+      where('correo', '>=', name),
+      where('correo', '<=', name + '\uf8ff')
     ));
   }
 
   async searchUserByQuery(name: string) {
     return getDocs(query(
       collection(this.firestore, PATH),
-      where('user', ">=", name),
-      where('user', "<=", name + '\uf8ff'),
+      where('user', '>=', name),
+      where('user', '<=', name + '\uf8ff')
     ));
   }
 

@@ -6,8 +6,6 @@ import { Router, RouterLink } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HeaderComponent } from '../../header/header.component';
 
-
-
 export interface CreateForm {
   user: FormControl<string>;
   passwo: FormControl<string>;
@@ -28,8 +26,8 @@ export interface CreateForm {
   styleUrl: './editusadmin.component.scss'
 })
 export class EditusadminComponent {
-  private eluserId = ''
-  public posicion = true
+  private eluserId = '';
+  public posicion = true;
 
   constructor(private router: Router, private userservice: UserService, private formBuilder: NonNullableFormBuilder) { }
 
@@ -47,9 +45,8 @@ export class EditusadminComponent {
     passwo: this.formBuilder.control('', Validators.required),
     nombre: this.formBuilder.control('', Validators.required),
     apellido: this.formBuilder.control('', Validators.required),
-    correo: this.formBuilder.control('', 
-      [Validators.required, Validators.email]),
-    celu: this.formBuilder.control('', Validators.min(10)),
+    correo: this.formBuilder.control('', [Validators.required, Validators.email]),
+    celu: this.formBuilder.control('', Validators.required),
     ubica: this.formBuilder.control('', Validators.required),
     foto: this.formBuilder.control(''),
     socialUrl: this.formBuilder.control('')
@@ -64,17 +61,15 @@ export class EditusadminComponent {
 
     try {
       const user = this.form.value as User;
-      if (this.posicion){
-        user.isadmin= true
-        } else {
-          user.isadmin= false
-        }
-      !this.userId
-        ? this.userservice.addUser(user)
-        : this.userservice.updateUser(this.userId, user);
+      user.isadmin = this.posicion;
+      if (this.userId) {
+        await this.userservice.updateUser(this.userId, user);
+      } else {
+        await this.userservice.addUser(user);
+      }
       this.router.navigate(['/listausuario']);
     } catch (error) {
-      // call some toast service to handle the error
+      console.error('Error updating user:', error);
     }
   }
 
@@ -83,24 +78,19 @@ export class EditusadminComponent {
       const user = await this.userservice.getUser(id);
       if (!user) return;
       this.form.setValue({
-        user: user.user,
-        passwo: user.passwo,
-        nombre: user.nombre,
-        apellido: user.apellido,
-        correo: user.correo,
-        celu: user.celu,
-        ubica: user.ubica,
-        foto: user.foto,
-        socialUrl: user.socialUrl
+        user: user.user || '',
+        passwo: user.passwo || '',
+        nombre: user.nombre || '',
+        apellido: user.apellido || '',
+        correo: user.correo || '',
+        celu: user.celu || '',
+        ubica: user.ubica || '',
+        foto: user.foto || '',
+        socialUrl: user.socialUrl || ''
       });
-      console.log(user.isadmin);
-      if (!user.isadmin){
-      this.posicion = false
-      } else {
-        this.posicion = true
-      }
-      
-
-    } catch (error) { }
+      this.posicion = user.isadmin ?? false;
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
   }
 }

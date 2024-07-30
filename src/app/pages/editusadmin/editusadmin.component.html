@@ -1,15 +1,13 @@
 <nav>
     <div (click)="volver()">
-        <h1> BibliotecaBAJR</h1>
+      <h1> BibliotecaBAJR</h1>
     </div>
     <div>
-        <app-header />
+      <app-header></app-header>
     </div>
-</nav>
+  </nav>
 <div class="container">
-    <nav>
-        <a href="#">Inicio</a> : <a href="#">Editar Perfil</a>
-    </nav>
+
     <h1>Edición del Usuario</h1>
     <form [formGroup]="form" (ngSubmit)="editUser()">
         <div class="form-group">
@@ -46,18 +44,15 @@
                 <label for="socialUrl">URL Red Social:</label>
                 <input type="url" id="socialUrl" name="socialUrl" formControlName="socialUrl">
             </div>
-            
         </div>
         
         <div>
-            <p><mat-slide-toggle  id= 'isAdmin' [(ngModel)]="posicion" [ngModelOptions]="{standalone: true}">Usuario Administrador</mat-slide-toggle></p>
+            <p><mat-slide-toggle id="isAdmin" [(ngModel)]="posicion" [ngModelOptions]="{standalone: true}">Usuario Administrador</mat-slide-toggle></p>
         </div>
 
         <div class="button-container">
             <button type="submit">Guardar</button>
-            <button routerLink="biblioteca">Cancelar</button>
+            <button routerLink="biblioadmin">Cancelar</button>
         </div>
     </form>
 </div>
-
-

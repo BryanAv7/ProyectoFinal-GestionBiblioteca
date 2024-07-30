@@ -1,9 +1,9 @@
 <nav>
   <div (click)="volver()">
-      <h1> BibliotecaBAJR</h1>
+    <h1>BibliotecaBAJR</h1>
   </div>
   <div>
-      <app-header />
+    <app-header></app-header>
   </div>
 </nav>
 <div class="tabla-container">
@@ -11,32 +11,27 @@
     <h2>Lista de Usuarios</h2>
     <div class="buscacontainer">
       <input type="text" placeholder="Buscar Usuarios" [(ngModel)]="buscateste" />
-      <button (click)="changeQuery()"> Buscar</button>
-  </div>
-    <table  id="userTable">
+      <button (click)="changeQuery()">Buscar</button>
+    </div>
+    <table id="userTable">
       <thead>
         <tr>
           <th>Usuario</th>
           <th>Nombre</th>
           <th>Correo Electrónico</th>
+          <th>Rol</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        @for(user of users; track user.id) {
-        <tr>
+        <tr *ngFor="let user of users; trackBy: trackById">
           <td>{{ user.user }}</td>
           <td>{{ user.nombre }} {{ user.apellido }}</td>
           <td>{{ user.correo }}</td>
-          <td><app-icon-edit (click)="editUser(user)"/></td>
+          <td>{{ user.isadmin ? 'Administrador' : 'Usuario' }}</td>
+          <td><app-icon-edit (click)="editUser(user)"></app-icon-edit></td>
         </tr>
-      }
       </tbody>
     </table>
   </div>
-  
 </div>
-<br>
-<br>
-
-  
