@@ -14,3 +14,9 @@
 
 <div class="cuadro-inicio izq">{{correo}}</div>
 <div class="cuadro-inicio der">{{libros.length}} Obras Disponibles</div>
+
+<ul>
+    <li *ngFor="let libro of listadoLibros">
+        {{libro.titulo}}
+    </li>
+</ul>
