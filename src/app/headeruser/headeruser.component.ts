@@ -7,14 +7,15 @@ import { AuthService } from '../services/auth.service';
 })
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-headeruser',
   standalone: true,
   imports: [],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  templateUrl: './headeruser.component.html',
+  styleUrl: './headeruser.component.scss'
 })
-export class HeaderComponent {
-  usuario: string = ''
+export class HeaderuserComponent {
+
+  usuario: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -24,22 +25,13 @@ export class HeaderComponent {
     this.usuario = name;
   }
 
-  irListaUser() {
-    this.router.navigate(['/listausuario']);
+  irRegresar() {
+    this.router.navigate(['/biblioteca']);
   }
-
-  irBibliAdmin() {
-    this.router.navigate(['/biblioadmin']);
+  
+  irPrestamo() {
+    this.router.navigate(['/prestamos']);
   }
-
-  irHistorial() {
-    this.router.navigate(['/historial']);
-  }
-
-  irCreaLibro() {
-    this.router.navigate(['/crealibro']);
-  }
-
 
   async cerrarSesion() {
     try {

@@ -85,42 +85,44 @@ export class LoginComponent {
 
   async signUpWithGoogle(): Promise<void> {
     try {
-      const result = await this.authService.signInWithGoogleProvider();
-      console.log(result);
-      console.log(result.user.email);
-      this.changeQuery(result.user.email || '')
-      if (this.admin) {
-        this.header.pasarNeim(this.nombre)
-        this.router.navigateByUrl('/biblioadmin');
-      } else {
-        this.header.pasarNeim(this.nombre)
-        this.router.navigateByUrl('/biblioteca');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+        const result = await this.authService.signInWithGoogleProvider();
+        console.log(result);
+        const email = result.user.email || '';
+        await this.changeQuery(email);
 
-  async changeQuery(name: string) {
-    console.log(name);
-    try {
-      await this.userService.searchUserUnico(name).then(data => {
-        this.users = data.docs.map((doc: any) => {
-          return {
-            id: doc.id,
-            ...doc.data()
-          };
-        });
-        console.log('usuarios', this.users);
-        this.user = this.users[0];
-        this.nombre = this.user.user;
-        this.correo = this.user.correo;
-        console.log('usuario', this.user);
-      });
+        if (this.user.isadmin) {
+            this.header.pasarNeim(this.nombre);
+            this.router.navigateByUrl('/biblioadmin');
+        } else {
+            this.header.pasarNeim(this.nombre);
+            this.router.navigateByUrl('/biblioteca');
+        }
     } catch (error) {
-      console.error(error);
+        console.log(error);
     }
+}
+
+
+async changeQuery(email: string) {
+  console.log(email);
+  try {
+      await this.userService.searchUserUnico(email).then(data => {
+          this.users = data.docs.map((doc: any) => {
+              return {
+                  id: doc.id,
+                  ...doc.data()
+              };
+          });
+          console.log('usuarios', this.users);
+          this.user = this.users[0];
+          this.nombre = this.user.nombre;
+          this.correo = this.user.correo;
+          console.log('usuario', this.user);
+      });
+  } catch (error) {
+      console.error(error);
   }
+}
 
   volver() {
     this.router.navigate(['/inicio']);

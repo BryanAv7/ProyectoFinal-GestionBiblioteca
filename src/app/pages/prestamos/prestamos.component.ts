@@ -9,12 +9,14 @@ import { PrestamoService } from '../../services/prestamo.service';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HeaderuserComponent } from '../../headeruser/headeruser.component';
+
 
 
 @Component({
   selector: 'app-prestamos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, HeaderuserComponent],
   templateUrl: './prestamos.component.html',
   styleUrl: './prestamos.component.scss'
 })
@@ -103,5 +105,9 @@ export class PrestamoComponent implements OnInit {
       const fechaDevolucion = new Date(this.nuevoPrestamo.fechaDevolucion);
       this.fechaDevolucionInvalida = fechaDevolucion < fechaPrestamo;
     }
+  }
+
+  volver() {
+    this.router.navigate(['/biblioteca']);
   }
 }

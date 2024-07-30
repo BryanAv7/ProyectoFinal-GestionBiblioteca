@@ -6,13 +6,14 @@ import { Router } from '@angular/router';
 import { HeaderComponent } from '../../header/header.component';
 import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HeaderuserComponent } from "../../headeruser/headeruser.component";
 
 
 
 @Component({
   selector: 'app-biblioteca',
   standalone: true,
-  imports: [FormsModule, HeaderComponent, CommonModule],
+  imports: [FormsModule, HeaderComponent, CommonModule, HeaderuserComponent],
   templateUrl: './biblioteca.component.html',
   styleUrl: './biblioteca.component.scss'
 })
