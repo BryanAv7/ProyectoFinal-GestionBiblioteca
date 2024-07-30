@@ -5,7 +5,6 @@ import { Libro } from '../../../domain/libro';
 import { LibroService } from '../../services/libro.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrestamoService } from '../../services/prestamo.service';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -49,7 +48,7 @@ export class PrestamoComponent implements OnInit {
     this.libroService.getPrestamos().then(snapshot => {
       this.prestamos = snapshot.docs
         .map(doc => ({ id: doc.id, ...doc.data() } as Prestamo))
-        .filter(prestamo => !prestamo.devuelto); 
+        .filter(prestamo => !prestamo.devuelto && prestamo.usuarioId === this.usuarioActual); 
     });
   }
 
