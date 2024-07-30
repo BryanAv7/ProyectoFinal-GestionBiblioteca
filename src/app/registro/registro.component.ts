@@ -6,11 +6,14 @@ import { UserService } from '../services/user.service';
 import { User } from '../../domain/user';
 
 interface SignUpForm {
-  username: FormControl<string>;
-  firstName: FormControl<string>;
-  lastName: FormControl<string>;
-  email: FormControl<string>;
-  password: FormControl<string>;
+  username: FormControl<string | null>;
+  firstName: FormControl<string | null>;
+  lastName: FormControl<string | null>;
+  email: FormControl<string | null>;
+  password: FormControl<string | null>;
+  phone: FormControl<string | null>;
+  location: FormControl<string | null>;
+  socialUrl: FormControl<string | null>;
 }
 
 @Component({
@@ -27,7 +30,7 @@ export class RegistroComponent {
 
   formBuilder = inject(FormBuilder);
 
-  form: FormGroup<SignUpForm> = this.formBuilder.group({
+  form: FormGroup<SignUpForm> = this.formBuilder.group<SignUpForm>({
     username: this.formBuilder.control('', {
       validators: Validators.required,
       nonNullable: true,
@@ -48,6 +51,15 @@ export class RegistroComponent {
       validators: Validators.required,
       nonNullable: true,
     }),
+    phone: this.formBuilder.control('', {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    location: this.formBuilder.control('', {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    socialUrl: this.formBuilder.control('')
   });
 
   constructor(private router: Router, private authService: AuthService, private userService: UserService) { }
@@ -67,6 +79,9 @@ export class RegistroComponent {
       this.user.nombre = this.form.value.firstName!;
       this.user.apellido = this.form.value.lastName!;
       this.user.passwo = this.form.value.password!;
+      this.user.celu = this.form.value.phone!;
+      this.user.ubica = this.form.value.location!;
+      this.user.socialUrl = this.form.value.socialUrl!;
       
       await this.userService.addUser(this.user);
       

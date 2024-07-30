@@ -1,7 +1,26 @@
-p {
-  text-align: center;
-  margin: 0 auto;
-  text-align: justify;
+nav {
+  background-color: rgb(93, 89, 89);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+}
+
+nav h1 {
+  margin: 0;
+}
+
+nav button {
+  color: white;
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background-color: rgba(9, 8, 8, 0.1);
 }
 
 .register-container {
@@ -21,8 +40,16 @@ form {
   margin-top: 20px;
 }
 
-div {
-  margin-bottom: 10px;
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; 
+}
+
+.input-field {
+  flex: 1;
+  min-width: 200px; 
+  box-sizing: border-box;
 }
 
 label {
@@ -30,24 +57,11 @@ label {
   margin-bottom: 5px;
 }
 
-.input-group {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-
-.input-group>div {
-  flex: 1;
-  margin-right: 10px;
-}
-
-.input-group>div:last-child {
-  margin-right: 0;
-}
-
 input[type="email"],
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="tel"],
+input[type="url"] {
   width: 100%;
   padding: 8px;
   border-radius: 3px;
@@ -60,6 +74,7 @@ input[type="password"] {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 10px; 
 }
 
 button {
@@ -70,14 +85,11 @@ button {
   border-radius: 3px;
   cursor: pointer;
   font-size: 16px;
-  margin: 5px;
 }
 
 button:hover {
   background-color: #45a049;
 }
-
-
 
 nav {
   background-color: rgb(93, 89, 89);
@@ -87,93 +99,16 @@ nav {
   max-width: 100%;
 }
 
-nav .izq {
-  position: absolute;
-
-  left: 15px;
-}
-
-nav .der {
-  position: absolute;
-
-  right: 15px;
-}
-nav button {
-  color: white;
-  background: none;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-nav button:hover {
-  background-color: rgba(9, 8, 8, 0.1);
-}
-
 @media only screen and (max-width: 600px) {
-  .input-group>div {
-    flex: 1 0 100%;
-    margin-right: 0;
+  .input-group {
+    flex-direction: column;
   }
 
-  input[type="email"],
-  input[type="text"],
-  input[type="password"] {
-    width: 200px;
-    padding: 8px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
+  .input-field {
+    margin-bottom: 10px; 
   }
 
   .button-container {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-  }
-
-  button {
-    background-color: #1c1cbd;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  button:hover {
-    background-color: #45a049;
-  }
-
-  nav {
-    background-color: rgb(93, 89, 89);
-    padding: 10px;
-    display: inline-flex;
-    list-style: none;
-    max-width: 100%;
-  }
-
-  nav .izq {
-    position: absolute;
-
-    left: 15px;
-  }
-
-  nav .der {
-    position: absolute;
-
-    right: 15px;
-  }
-
-  nav button {
-    color: white;
-    background: none;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-
-  nav button:hover {
-    background-color: rgba(9, 8, 8, 0.1);
+    gap: 10px; 
   }
 }
