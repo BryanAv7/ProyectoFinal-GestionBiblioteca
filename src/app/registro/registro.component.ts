@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { getAuth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { User } from '../../domain/user';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService, Credential } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { User } from '../../domain/user';
 
 interface SignUpForm {
   username: FormControl<string>;
@@ -14,12 +13,10 @@ interface SignUpForm {
   password: FormControl<string>;
 }
 
-export type Provider = 'google';
-
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.scss']
 })
@@ -55,61 +52,47 @@ export class RegistroComponent {
 
   constructor(private router: Router, private authService: AuthService, private userService: UserService) { }
 
-  get isEmailValid(): string | boolean {
-    const control = this.form.get('email');
-
-    const isInvalid = control?.invalid && control.touched;
-
-    if (isInvalid) {
-      return control.hasError('required')
-        ? 'Este campo es requerido'
-        : 'Introduzca un correo válido';
-    }
-
-    return false;
-  }
-
   async signUp(): Promise<void> {
     if (this.form.invalid) return;
 
     const credential: Credential = {
-      email: this.form.value.email || '',
-      password: this.form.value.password || '',
+      email: this.form.value.email!,
+      password: this.form.value.password!,
     };
 
     try {
       await this.authService.signUpWithEmailAndPassword(credential);
-      alert("Inició sesión exitosamente 😀");
-      console.log('Registro Completado', this.user);
-      this.userService.addUser(this.user);
+      this.user.correo = this.form.value.email!;
+      this.user.user = this.form.value.username!;
+      this.user.nombre = this.form.value.firstName!;
+      this.user.apellido = this.form.value.lastName!;
+      this.user.passwo = this.form.value.password!;
+      
+      await this.userService.addUser(this.user);
+      
+      alert("Registro Completado. Inició sesión exitosamente 😀");
       this.router.navigateByUrl('/login');
-
     } catch (error) {
       console.error(error);
-
-    }
-  }
-
-  providerAction(provider: Provider): void {
-    if (provider === 'google') {
-      this.signUpWithGoogle();
+      alert("Error en el registro. Por favor, inténtelo de nuevo.");
     }
   }
 
   async signUpWithGoogle(): Promise<void> {
     try {
       const result = await this.authService.signInWithGoogleProvider();
-      console.log(result);
-      this.user.user = result.user.displayName || ''
-      this.user.nombre = result.user.displayName || ''
-      this.user.apellido = result.user.displayName || ''
-      this.user.correo = result.user.email || ''
-      this.user.passwo = result.user.tenantId || ''
-      this.user.foto = result.user.photoURL || ''
-      this.userService.addUser(this.user);
-      this.router.navigateByUrl('/login')
+      this.user.user = result.user.displayName || '';
+      this.user.nombre = result.user.displayName || '';
+      this.user.apellido = result.user.displayName || '';
+      this.user.correo = result.user.email || '';
+      this.user.passwo = result.user.tenantId || '';
+      this.user.foto = result.user.photoURL || '';
+
+      await this.userService.addUser(this.user);
+
+      this.router.navigateByUrl('/login');
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -121,7 +104,7 @@ export class RegistroComponent {
     this.router.navigate(['/login']);
   }
 
-  irRegistro() {
-    this.router.navigate(['/registro']);
+  irRegresar() {
+    this.router.navigate(['/login']);
   }
 }

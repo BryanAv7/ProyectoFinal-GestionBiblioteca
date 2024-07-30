@@ -77,6 +77,39 @@ button:hover {
   background-color: #45a049;
 }
 
+
+
+nav {
+  background-color: rgb(93, 89, 89);
+  padding: 10px;
+  display: inline-flex;
+  list-style: none;
+  max-width: 100%;
+}
+
+nav .izq {
+  position: absolute;
+
+  left: 15px;
+}
+
+nav .der {
+  position: absolute;
+
+  right: 15px;
+}
+nav button {
+  color: white;
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background-color: rgba(9, 8, 8, 0.1);
+}
+
 @media only screen and (max-width: 600px) {
   .input-group>div {
     flex: 1 0 100%;

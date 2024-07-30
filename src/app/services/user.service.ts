@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, getDocs, query } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, query, doc, setDoc, getDoc, updateDoc, where } from '@angular/fire/firestore';
 import { User } from '../../domain/user';
-import { addDoc, deleteDoc, doc, getDoc, updateDoc, where } from 'firebase/firestore';
 
 const PATH = 'usuarios';
 
@@ -12,26 +11,26 @@ export class UserService {
   constructor(private firestore: Firestore) { }
 
   getUsers() {
-    return getDocs(query(collection(this.firestore, 'usuarios')))
+    return getDocs(query(collection(this.firestore, PATH)));
   }
 
-  addUser(user: User) {
-    addDoc(collection(this.firestore, 'usuarios'), Object.assign({}, user))
+  async addUser(user: User): Promise<void> {
+    const userRef = doc(this.firestore, `${PATH}/${user.correo}`);
+    return setDoc(userRef, Object.assign({}, user));
   }
 
   async getUser(id: string) {
     try {
-      const snapshot = await getDoc(this.document(id));
+      const snapshot = await getDoc(doc(this.firestore, `${PATH}/${id}`));
       return snapshot.data() as User;
     } catch (error) {
-      //catch error
       return undefined;
     }
   }
 
   async searchUserUnico(name: string) {
     return getDocs(query(
-      collection(this.firestore, 'usuarios'),
+      collection(this.firestore, PATH),
       where('correo', ">=", name),
       where('correo', "<=", name + '\uf8ff'),
     ));
@@ -39,16 +38,15 @@ export class UserService {
 
   async searchUserByQuery(name: string) {
     return getDocs(query(
-      collection(this.firestore, 'usuarios'),
+      collection(this.firestore, PATH),
       where('user', ">=", name),
       where('user', "<=", name + '\uf8ff'),
     ));
   }
 
   updateUser(id: string, user: User) {
-    return updateDoc(this.document(id), { ...user });
+    return updateDoc(doc(this.firestore, `${PATH}/${id}`), { ...user });
   }
-
 
   private document(id: string) {
     return doc(this.firestore, `${PATH}/${id}`);
