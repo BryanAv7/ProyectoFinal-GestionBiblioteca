@@ -61,9 +61,11 @@ export class LibroService {
     const docSnapshot = await getDoc(this.document(PATH_PRESTAMOS, prestamoId));
     const prestamo = docSnapshot.data() as Prestamo;
     if (prestamo) {
-        await this.updateLibro(prestamo.libroId, { estado: 'disponible' });
-        // Marca el préstamo como devuelto en lugar de eliminarlo
-        await updateDoc(this.document(PATH_PRESTAMOS, prestamoId), { devuelto: true });
+      await this.updateLibro(prestamo.libroId, { estado: 'disponible' });
+      await updateDoc(this.document(PATH_PRESTAMOS, prestamoId), {
+        devuelto: true,
+        fechaEntrega: new Date().toISOString() 
+      });
     }
 }
 

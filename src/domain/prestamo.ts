@@ -5,4 +5,5 @@ export class Prestamo {
     fechaPrestamo: Date = new Date();
     fechaDevolucion?: Date;
     devuelto: boolean = false; 
+    fechaEntrega?: Date;
 }

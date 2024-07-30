@@ -19,8 +19,7 @@ import { Router } from '@angular/router';
 export class HistorialComponent implements OnInit {
   prestamos: Prestamo[] = [];
   libros: Libro[] = [];
-  librosDevueltos: Prestamo[] = [];
-  librosNoDevueltos: Prestamo[] = [];
+  reportesUsuarios: { usuarioId: string, cantidad: number }[] = [];
   librosMasPrestados: { libroId: string, cantidad: number }[] = [];
 
   constructor(private libroService: LibroService, private router: Router) { }
@@ -33,7 +32,6 @@ export class HistorialComponent implements OnInit {
   cargarHistorial() {
     this.libroService.getPrestamos().then(snapshot => {
       this.prestamos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Prestamo));
-      this.librosDevueltos = this.prestamos.filter(prestamo => prestamo.devuelto);
       this.generarReportes();
     });
   }
@@ -50,20 +48,32 @@ export class HistorialComponent implements OnInit {
   }
 
   generarReportes() {
-    this.librosNoDevueltos = this.prestamos.filter(prestamo => !prestamo.devuelto);
-
-    const prestamoCount: { [libroId: string]: number } = {};
+    const prestamoCountPorUsuario: { [usuarioId: string]: number } = {};
     this.prestamos.forEach(prestamo => {
-      if (prestamoCount[prestamo.libroId]) {
-        prestamoCount[prestamo.libroId]++;
+      if (prestamoCountPorUsuario[prestamo.usuarioId]) {
+        prestamoCountPorUsuario[prestamo.usuarioId]++;
       } else {
-        prestamoCount[prestamo.libroId] = 1;
+        prestamoCountPorUsuario[prestamo.usuarioId] = 1;
       }
     });
 
-    this.librosMasPrestados = Object.keys(prestamoCount).map(libroId => ({
+    this.reportesUsuarios = Object.keys(prestamoCountPorUsuario).map(usuarioId => ({
+      usuarioId,
+      cantidad: prestamoCountPorUsuario[usuarioId]
+    }));
+
+    const prestamoCountPorLibro: { [libroId: string]: number } = {};
+    this.prestamos.forEach(prestamo => {
+      if (prestamoCountPorLibro[prestamo.libroId]) {
+        prestamoCountPorLibro[prestamo.libroId]++;
+      } else {
+        prestamoCountPorLibro[prestamo.libroId] = 1;
+      }
+    });
+
+    this.librosMasPrestados = Object.keys(prestamoCountPorLibro).map(libroId => ({
       libroId,
-      cantidad: prestamoCount[libroId]
+      cantidad: prestamoCountPorLibro[libroId]
     })).sort((a, b) => b.cantidad - a.cantidad);
   }
 
