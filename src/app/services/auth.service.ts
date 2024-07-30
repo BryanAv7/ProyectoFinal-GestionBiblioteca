@@ -6,7 +6,6 @@ export interface Credential {
   password: string;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,8 +14,6 @@ export class AuthService {
   readonly authState$ = authState(this.afAuth);
 
   constructor(private afAuth: Auth) { }
-
-
 
   signUpWithEmailAndPassword(credential: Credential): Promise<UserCredential> {
     return createUserWithEmailAndPassword(
@@ -38,23 +35,17 @@ export class AuthService {
     return this.afAuth.signOut();
   }
 
-  // providers
-
   signInWithGoogleProvider(): Promise<UserCredential> {
     const provider = new GoogleAuthProvider();
-
     return this.callPopUp(provider);
   }
 
   async callPopUp(provider: AuthProvider): Promise<UserCredential> {
     try {
       const result = await signInWithPopup(this.afAuth, provider);
-
       return result;
     } catch (error: any) {
       return error;
     }
   }
-
 }
-
