@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, getDocs, query, doc, setDoc, getDoc, updateDoc, where } from '@angular/fire/firestore';
 import { User } from '../../domain/user';
+import {HttpClient} from '@angular/common/http';
+import { Usuario } from '../../domain/usuarios';
 
 const PATH = 'usuarios';
 
@@ -8,7 +10,17 @@ const PATH = 'usuarios';
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private firestore: Firestore) { }
+
+
+  constructor(private firestore: Firestore, private http: HttpClient) { }
+
+  private baseUrl: string = 'http://localhost:8080/proyecto/api'
+
+
+  register(usuario: Usuario) {
+    
+    return this.http.post(`${this.baseUrl}/usuarios`, usuario);
+  }
 
   getUsers() {
     return getDocs(query(collection(this.firestore, PATH)));
