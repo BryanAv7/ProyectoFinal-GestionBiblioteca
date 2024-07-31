@@ -1,66 +1,72 @@
 <nav>
   <div (click)="volver()">
-      <h1> BibliotecaBAJR</h1>
+    <h1> BibliotecaBAJR</h1>
   </div>
   <div>
-      <app-headeruser></app-headeruser>
+    <app-headeruser></app-headeruser>
   </div>
-  </nav>
+</nav>
 
-  <div class="form-container">
-    <div class="form-section">
-      <h2>Registro de Préstamos</h2>
-      <form (ngSubmit)="registrarPrestamo()">
-        <label for="fechaPrestamo">Fecha de Préstamo</label>
-        <input id="fechaPrestamo" type="date" [(ngModel)]="nuevoPrestamo.fechaPrestamo" name="fechaPrestamo" required>
-  
-        <label for="fechaDevolucion">Fecha de Devolución</label>
-        <input id="fechaDevolucion" type="date" [(ngModel)]="nuevoPrestamo.fechaDevolucion" name="fechaDevolucion" (change)="validarFechas()">
-  
-        <div *ngIf="fechaDevolucionInvalida" class="error-message">
-          La fecha de devolución no puede ser menor a la fecha de préstamo.
-        </div>
-  
-        <label for="libroId">Libro</label>
-        <select id="libroId" [(ngModel)]="nuevoPrestamo.libroId" name="libroId" required>
-          <option *ngFor="let libro of libros" [value]="libro.id" [disabled]="libro.estado !== 'disponible'">
-            {{ libro.titulo }} - Estado: {{ libro.estado || 'disponible' }}
-          </option>
-        </select>
+<div class="alert-container" *ngIf="tieneLibrosPendientes">
+  <div class="alert">
+    <h2>Recordatorio</h2>
+    <p>Tienes libros pendientes por devolución. Por favor, devuelve los libros a tiempo para evitar sanciones.</p>
+  </div>
+</div>
+
+<div class="form-container">
+  <div class="form-section">
+    <h2>Registro de Préstamos</h2>
+    <form (ngSubmit)="registrarPrestamo()">
+      <label for="fechaPrestamo">Fecha de Préstamo</label>
+      <input id="fechaPrestamo" type="date" [(ngModel)]="nuevoPrestamo.fechaPrestamo" name="fechaPrestamo" required>
+
+      <label for="fechaDevolucion">Fecha de Devolución</label>
+      <input id="fechaDevolucion" type="date" [(ngModel)]="nuevoPrestamo.fechaDevolucion" name="fechaDevolucion" (change)="validarFechas()">
+
+      <div *ngIf="fechaDevolucionInvalida" class="error-message">
+        La fecha de devolución no puede ser menor a la fecha de préstamo.
+      </div>
+
+      <label for="libroId">Libro</label>
+      <select id="libroId" [(ngModel)]="nuevoPrestamo.libroId" name="libroId" required>
+        <option *ngFor="let libro of libros" [value]="libro.id" [disabled]="libro.estado !== 'disponible'">
+          {{ libro.titulo }} - Estado: {{ libro.estado || 'disponible' }}
+        </option>
+      </select>
+      <br>
+      <div class="button-row">
+        <button type="submit" [disabled]="fechaDevolucionInvalida">Registrar Préstamo</button>
+        <button type="button" (click)="regresar()" class="regresar">Regresar</button>
+      </div>
+    </form>
+  </div>
   <br>
-        <div class="button-row">
-          <button type="submit" [disabled]="fechaDevolucionInvalida">Registrar Préstamo</button>
-          <button type="button" (click)="regresar()" class="regresar">Regresar</button>
-        </div>
-      </form>
-    </div>
-  <br>
-    <div class="list-section">
-      <h2>Lista de Préstamos</h2>
-      <ul>
-        <li *ngFor="let prestamo of prestamos">
-          <span>Libro: {{ getLibroTitulo(prestamo.libroId) }}</span>
-          <span>Fecha de Préstamo: {{ prestamo.fechaPrestamo | date:'shortDate' }}</span>
-          <span>Fecha de Devolución: {{ prestamo.fechaDevolucion | date:'shortDate' }}</span>
-          <button class="button" (click)="devolverLibro(prestamo)">Devolver</button>
-        </li>
-      </ul>
-    </div>
-  
-    <div class="tabla-container">
-      <h2>Lista de Libros</h2>
-      <div class="book-details" *ngFor="let libro of libros" [ngClass]="{
-        'borrowed': libro.estado === 'prestado',
-        'available': libro.estado === 'disponible'
-      }">
-        <img [src]="libro.portada" alt="{{ libro.titulo }}">
-        <div>
-          <h5>{{ libro.titulo }}</h5>
-          <span>{{ libro.autores }}</span>
-          <span>{{ libro.editorial }}</span>
-          <span>Estado: {{ libro.estado }}</span>
-        </div>
+  <div class="list-section">
+    <h2>Lista de Préstamos</h2>
+    <ul>
+      <li *ngFor="let prestamo of prestamos">
+        <span>Libro: {{ getLibroTitulo(prestamo.libroId) }}</span>
+        <span>Fecha de Préstamo: {{ prestamo.fechaPrestamo | date:'shortDate' }}</span>
+        <span>Fecha de Devolución: {{ prestamo.fechaDevolucion | date:'shortDate' }}</span>
+        <button class="button" (click)="devolverLibro(prestamo)">Devolver</button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tabla-container">
+    <h2>Lista de Libros</h2>
+    <div class="book-details" *ngFor="let libro of libros" [ngClass]="{
+      'borrowed': libro.estado === 'prestado',
+      'available': libro.estado === 'disponible'
+    }">
+      <img [src]="libro.portada" alt="{{ libro.titulo }}">
+      <div>
+        <h5>{{ libro.titulo }}</h5>
+        <span>{{ libro.autores }}</span>
+        <span>{{ libro.editorial }}</span>
+        <span>Estado: {{ libro.estado }}</span>
       </div>
     </div>
   </div>
-  
+</div>

@@ -1,3 +1,51 @@
+
+.alert-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 350px;
+  z-index: 1000;
+}
+
+
+.alert {
+  background-color: #f44336; 
+  color: #ffffff; 
+  border: 1px solid #d4e157; 
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin: 0;
+  position: relative; 
+}
+
+.alert h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #ffffff; 
+}
+
+.alert p {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #ffffff; 
+}
+
+
+.alert::before {
+  content: '×';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #ffffff; 
+  cursor: pointer;
+}
+
+.alert::before:hover {
+  color: #e57373; 
+}
+
 .form-container, .tabla-container {
   max-width: 600px;
   margin: 40px auto;

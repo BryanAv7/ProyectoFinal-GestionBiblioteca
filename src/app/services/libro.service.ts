@@ -3,17 +3,17 @@ import { Firestore, addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, 
 import { Libro } from '../../domain/libro';
 import { Prestamo } from '../../domain/prestamo';
 
-const PATH = 'libros';
 const PATH_LIBROS = 'libros';
 const PATH_PRESTAMOS = 'prestamos';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class LibroService {
+
   constructor(private firestore: Firestore) { }
 
+  // Metodo: Libro
   getLibros() {
     return getDocs(query(collection(this.firestore, PATH_LIBROS)));
   }
@@ -47,6 +47,7 @@ export class LibroService {
     return deleteDoc(this.document(PATH_LIBROS, id));
   }
 
+  // Metodo: Prestamo
   async addPrestamo(prestamo: Prestamo) {
     const libroDoc = this.document(PATH_LIBROS, prestamo.libroId);
     await updateDoc(libroDoc, { estado: 'prestado' });
@@ -64,10 +65,16 @@ export class LibroService {
       await this.updateLibro(prestamo.libroId, { estado: 'disponible' });
       await updateDoc(this.document(PATH_PRESTAMOS, prestamoId), {
         devuelto: true,
-        fechaEntrega: new Date().toISOString() 
+        fechaEntrega: new Date().toISOString()
       });
     }
-}
+  }
+
+  async getPrestamosPendientes(usuarioId: string) {
+    const prestamosRef = collection(this.firestore, PATH_PRESTAMOS);
+    const q = query(prestamosRef, where('usuarioId', '==', usuarioId), where('devuelto', '==', false));
+    return getDocs(q);
+  }
 
   private document(collectionPath: string, id: string) {
     return doc(this.firestore, `${collectionPath}/${id}`);

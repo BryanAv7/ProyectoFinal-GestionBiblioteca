@@ -1,54 +1,57 @@
-import { Component } from '@angular/core';
-import { Prestamo} from '../../../domain/prestamo';
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Prestamo } from '../../../domain/prestamo';
 import { Libro } from '../../../domain/libro';
 import { LibroService } from '../../services/libro.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HeaderuserComponent } from '../../headeruser/headeruser.component';
-
-
+import { AuthService } from '../../services/auth.service';  
 
 @Component({
   selector: 'app-prestamos',
   standalone: true,
   imports: [CommonModule, FormsModule, HeaderuserComponent],
   templateUrl: './prestamos.component.html',
-  styleUrl: './prestamos.component.scss'
+  styleUrls: ['./prestamos.component.scss']
 })
-
 export class PrestamoComponent implements OnInit {
   prestamos: Prestamo[] = [];
   libros: Libro[] = [];
   nuevoPrestamo: Prestamo = new Prestamo();
   usuarioActual: string = '';
   fechaDevolucionInvalida: boolean = false;
+  tieneLibrosPendientes: boolean = false;
 
   constructor(
     private libroService: LibroService,
-    private authService: AuthService,
-    private router: Router 
+    private authService: AuthService,  
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.authService.authState$.subscribe(user => {
       if (user) {
         this.usuarioActual = user.displayName || user.email || 'Usuario';
+        this.cargarPrestamosPendientes();
       }
     });
 
-    this.cargarPrestamos();
     this.cargarLibros();
   }
 
-  cargarPrestamos() {
-    this.libroService.getPrestamos().then(snapshot => {
+  cargarPrestamosPendientes() {
+    this.libroService.getPrestamosPendientes(this.usuarioActual).then(snapshot => {
       this.prestamos = snapshot.docs
-        .map(doc => ({ id: doc.id, ...doc.data() } as Prestamo))
-        .filter(prestamo => !prestamo.devuelto && prestamo.usuarioId === this.usuarioActual); 
+        .map(doc => ({ id: doc.id, ...doc.data() } as Prestamo));
+      this.tieneLibrosPendientes = this.prestamos.length > 0;
+
+      //  7 segundos
+      if (this.tieneLibrosPendientes) {
+        setTimeout(() => {
+          this.tieneLibrosPendientes = false;
+        }, 7000);
+      }
     });
   }
 
@@ -67,7 +70,7 @@ export class PrestamoComponent implements OnInit {
   registrarPrestamo() {
     this.nuevoPrestamo.usuarioId = this.usuarioActual;
     this.libroService.addPrestamo(this.nuevoPrestamo).then(() => {
-      this.cargarPrestamos();
+      this.cargarPrestamosPendientes();
       this.cargarLibros();
       this.limpiarCampos();
     });
@@ -75,9 +78,7 @@ export class PrestamoComponent implements OnInit {
 
   devolverLibro(prestamo: Prestamo) {
     this.libroService.registrarDevolucion(prestamo.id).then(() => {
-      
-      this.prestamos = this.prestamos.filter(p => p.id !== prestamo.id);
-      
+      this.cargarPrestamosPendientes();
       this.cargarLibros();
     });
   }
@@ -87,11 +88,8 @@ export class PrestamoComponent implements OnInit {
     return libro ? libro.titulo : 'Desconocido';
   }
 
-  limpiarCampos(form?: NgForm) {
+  limpiarCampos() {
     this.nuevoPrestamo = new Prestamo();
-    if (form) {
-      form.resetForm();
-    }
   }
 
   regresar() {
