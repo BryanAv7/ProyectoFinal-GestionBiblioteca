@@ -15,7 +15,9 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './prestamos.component.html',
   styleUrls: ['./prestamos.component.scss']
 })
+// Componente de Angular para gestionar préstamos de libros.
 export class PrestamoComponent implements OnInit {
+  // Listas y variables para gestionar préstamos, libros y estado de formularios.
   prestamos: Prestamo[] = [];
   libros: Libro[] = [];
   nuevoPrestamo: Prestamo = new Prestamo();
@@ -23,30 +25,32 @@ export class PrestamoComponent implements OnInit {
   fechaDevolucionInvalida: boolean = false;
   tieneLibrosPendientes: boolean = false;
 
+  // Constructor que inyecta los servicios de libros, autenticación y router.
   constructor(
     private libroService: LibroService,
     private authService: AuthService,  
     private router: Router
   ) { }
 
+  // Método de inicialización del componente.
   ngOnInit(): void {
     this.authService.authState$.subscribe(user => {
       if (user) {
         this.usuarioActual = user.displayName || user.email || 'Usuario';
-        this.cargarPrestamosPendientes();
+        this.cargarPrestamosPendientes(); // Carga préstamos pendientes del usuario.
       }
     });
 
-    this.cargarLibros();
+    this.cargarLibros(); // Carga la lista de libros.
   }
 
+  // Carga los préstamos pendientes del usuario actual.
   cargarPrestamosPendientes() {
     this.libroService.getPrestamosPendientes(this.usuarioActual).then(snapshot => {
-      this.prestamos = snapshot.docs
-        .map(doc => ({ id: doc.id, ...doc.data() } as Prestamo));
+      this.prestamos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Prestamo));
       this.tieneLibrosPendientes = this.prestamos.length > 0;
 
-      //  7 segundos
+      // Muestra estado de libros pendientes durante 7 segundos.
       if (this.tieneLibrosPendientes) {
         setTimeout(() => {
           this.tieneLibrosPendientes = false;
@@ -55,6 +59,7 @@ export class PrestamoComponent implements OnInit {
     });
   }
 
+  // Carga la lista de libros y ajusta el estado si no está definido.
   cargarLibros() {
     this.libroService.getLibros().then(snapshot => {
       this.libros = snapshot.docs.map(doc => {
@@ -67,6 +72,7 @@ export class PrestamoComponent implements OnInit {
     });
   }
 
+  // Registra un nuevo préstamo y actualiza las listas.
   registrarPrestamo() {
     this.nuevoPrestamo.usuarioId = this.usuarioActual;
     this.libroService.addPrestamo(this.nuevoPrestamo).then(() => {
@@ -76,6 +82,7 @@ export class PrestamoComponent implements OnInit {
     });
   }
 
+  // Registra la devolución de un libro y actualiza las listas.
   devolverLibro(prestamo: Prestamo) {
     this.libroService.registrarDevolucion(prestamo.id).then(() => {
       this.cargarPrestamosPendientes();
@@ -83,19 +90,23 @@ export class PrestamoComponent implements OnInit {
     });
   }
 
+  // Obtiene el título de un libro dado su ID.
   getLibroTitulo(libroId: string): string {
     const libro = this.libros.find(l => l.id === libroId);
     return libro ? libro.titulo : 'Desconocido';
   }
 
+  // Limpia los campos del formulario de préstamo.
   limpiarCampos() {
     this.nuevoPrestamo = new Prestamo();
   }
 
+  // Navega de vuelta a la vista de biblioteca.
   regresar() {
     this.router.navigate(['/biblioteca']);
   }
 
+  // Valida que la fecha de devolución no sea anterior a la fecha de préstamo.
   validarFechas() {
     if (this.nuevoPrestamo.fechaPrestamo && this.nuevoPrestamo.fechaDevolucion) {
       const fechaPrestamo = new Date(this.nuevoPrestamo.fechaPrestamo);
@@ -104,6 +115,7 @@ export class PrestamoComponent implements OnInit {
     }
   }
 
+  // Método redundante que también navega a la vista de biblioteca.
   volver() {
     this.router.navigate(['/biblioteca']);
   }
