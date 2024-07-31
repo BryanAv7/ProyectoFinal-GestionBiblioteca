@@ -71,7 +71,11 @@ export class LoginComponent {
     try {
       await this.authService.logInWithEmailAndPassword(credential);
       alert("Inició sesión exitosamente 😀");
-      this.router.navigateByUrl('/biblioteca');
+      //const data = this.authService.getCurrentUser();
+      const data = this.userService.getUserEmail(credential.email);
+      console.log("---");
+      console.log(data);
+      this.router.navigateByUrl('/biblioadmin');
     } catch (error) {
       console.error(error);
     }

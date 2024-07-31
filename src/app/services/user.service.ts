@@ -28,6 +28,15 @@ export class UserService {
       return undefined;
     }
   }
+  async getUserEmail(correo: string) {
+    try {
+      const snapshot = await getDoc(doc(this.firestore, `${PATH}/${correo}`));
+      return snapshot.data() as User;
+    } catch (error) {
+      console.error('Error al obtener usuario:', error);
+      return undefined;
+    }
+  }
 
   async searchUserUnico(name: string) {
     return getDocs(query(

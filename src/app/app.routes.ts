@@ -10,6 +10,7 @@ import { BiblioadminComponent } from './pages/biblioadmin/biblioadmin.component'
 import { EditusadminComponent } from './pages/editusadmin/editusadmin.component';
 import { PrestamoComponent } from './pages/prestamos/prestamos.component';
 import { HistorialComponent } from './pages/historial/historial.component';
+import { authGuard } from './guards';
 
 
 export const routes: Routes = [
@@ -17,13 +18,13 @@ export const routes: Routes = [
   { path: 'inicio', title: 'Inicio', component: InicioComponent },
   { path: 'login', title: 'Inicio Sesión', component: LoginComponent },
   { path: 'registro', title: 'Registro', component: RegistroComponent },
-  { path: 'biblioteca', title: 'Biblioteca', component: BibliotecaComponent },
-  { path: 'biblioadmin', title: 'Administrar Libros', component: BiblioadminComponent },
-  { path: 'listausuario', title: 'Lista usuarios', component: ListaUsuarioComponent },
-  { path: 'crealibro', title: 'Crear libro', component: CrealibroComponent },
-  { path: 'editalibro/:libroId', title: 'Editar libro', component: CrealibroComponent },
-  { path: 'edituser/:userId', title: 'Editar usuario', component: EdituserComponent },
-  { path: 'edituseradmin/:userId', title: 'Editar usuario', component: EditusadminComponent },
+  { path: 'biblioteca', title: 'Biblioteca', component: BibliotecaComponent  },
+  { path: 'biblioadmin', title: 'Administrar Libros', component: BiblioadminComponent , canActivate: [authGuard] },
+  { path: 'listausuario', title: 'Lista usuarios', component: ListaUsuarioComponent, canActivate: [authGuard] },
+  { path: 'crealibro', title: 'Crear libro', component: CrealibroComponent, canActivate: [authGuard] },
+  { path: 'editalibro/:libroId', title: 'Editar libro', component: CrealibroComponent, canActivate: [authGuard] },
+  { path: 'edituser/:userId', title: 'Editar usuario', component: EdituserComponent, canActivate: [authGuard] },
+  { path: 'edituseradmin/:userId', title: 'Editar usuario', component: EditusadminComponent, canActivate: [authGuard] },
   { path: 'prestamos', title: 'Gestión de Préstamos', component: PrestamoComponent },
-  { path: 'historial', title: 'Historial de Préstamos', component: HistorialComponent }
+  { path: 'historial', title: 'Historial de Préstamos', component: HistorialComponent, canActivate: [authGuard] }
 ];
