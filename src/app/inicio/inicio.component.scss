@@ -1,46 +1,87 @@
+/* Estilos generales */
 .presenta {
     background-image: url('https://img.freepik.com/vector-gratis/estanteria-interior-biblioteca-ilustracion-fondo-mesa-silla-estante-madera-bibliotecario-dibujos-animados-archivo-escuela-o-universidad-muebles-libreria-grafica-dibujos-animados-escritorio-lampara-pasillo_107791-22653.jpg?w=996&t=st=1717124479~exp=1717125079~hmac=b1928ef3d47758be546e5bea482f3ef7026b6d6b9ddf5218fceefd3c5bb65e18');
-    background-size: cover; /* Para que la imagen cubra todo el div */
-    background-position: center; /* Para que la imagen se posicione en el centro */
-    height: 400px; /* Altura del div */
+    background-size: cover;
+    background-position: center;
+    height: 400px;
     max-width: 100%;
+    display: flex;
+    align-items: flex-end; /* Alinear el título al final */
+    padding: 0 5%; /* Agregar padding para mantener el texto dentro del margen */
 }
 
 .presenta h2 {
-    position: relative;
-    top: 85%;
     color: #ffffff;
     font-size: 60px;
-    margin-left: 5%;
+    margin: 0;
 }
 
+/* Estilos para nav */
 nav {
     background-color: rgb(93, 89, 89);
     padding: 10px;
-    display: inline-flex;
-    list-style: none;
+    display: flex;
+    justify-content: space-between; /* Espacio entre los elementos de la navegación */
+    align-items: center; /* Centrar los elementos verticalmente */
     max-width: 100%;
 }
 
-nav .izq {
-    position: absolute;
-
-    left: 15px;
-}
-
-nav .der {
-    position: absolute;
-
-    right: 15px;
-}
 nav button {
     color: white;
     background: none;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 nav button:hover {
     background-color: rgba(9, 8, 8, 0.1);
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .presenta {
+        height: 300px;
+        padding: 0 3%; /* Ajuste de padding en móviles */
+    }
+
+    .presenta h2 {
+        font-size: 40px;
+    }
+
+    nav {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+
+    nav .izq,
+    nav .der {
+        margin: 5px 0;
+    }
+
+    nav button {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+/* Estilos para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .presenta {
+        height: 250px;
+        padding: 0 2%;
+    }
+
+    .presenta h2 {
+        font-size: 28px; /* Ajuste más fino del tamaño de fuente */
+    }
+
+    nav {
+        padding: 5px 0;
+    }
+
+    nav button {
+        padding: 8px;
+    }
 }
