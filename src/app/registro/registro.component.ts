@@ -4,7 +4,6 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService, Credential } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { User } from '../../domain/user';
-import { Usuario } from '../../domain/usuarios';
 
 interface SignUpForm {
   username: FormControl<string | null>;
@@ -29,38 +28,41 @@ export class RegistroComponent {
 
   user: User = new User();
 
-  usuario!: Usuario;
-
   formBuilder = inject(FormBuilder);
 
-  
-  private fb = inject(FormBuilder);
-
-  public form: FormGroup = this.fb.group({
-    user: ['', [Validators.required]], // Requerido
-    nombre: ['', [Validators.required]], // Requerido
-    apellido: ['', [Validators.required]], // Requerido
-    correo: ['', [Validators.required, Validators.email]], // Requerido y debe ser un correo válido
-    password: ['', [Validators.required]], // Requerido y debe tener al menos 6 caracteres
-    celular: ['', [Validators.required]], // Requerido
-    ubicacion: ['', [Validators.required]], // Requerido
-    foto: [''], // Opcional
-    socialUrl: [''], // Opcional
-    isAdmin: [false] // Default es false
+  form: FormGroup<SignUpForm> = this.formBuilder.group<SignUpForm>({
+    username: this.formBuilder.control('', {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    firstName: this.formBuilder.control('', {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    lastName: this.formBuilder.control('', {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    email: this.formBuilder.control('', {
+      validators: [Validators.required, Validators.email],
+      nonNullable: true,
+    }),
+    password: this.formBuilder.control('', {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    phone: this.formBuilder.control('', {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    location: this.formBuilder.control('', {
+      validators: Validators.required,
+      nonNullable: true,
+    }),
+    socialUrl: this.formBuilder.control('')
   });
 
-
-
-
   constructor(private router: Router, private authService: AuthService, private userService: UserService) { }
-
-
-  register() {
-    this.usuario = this.form.value;
-    this.userService.register(this.usuario).subscribe(resp => {
-      console.log(resp)
-    })
-  }
 
   async signUp(): Promise<void> {
     if (this.form.invalid) return;
