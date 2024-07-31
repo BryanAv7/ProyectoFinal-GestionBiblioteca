@@ -9,27 +9,27 @@
 </nav>
 
 <div class="register-container">
-  <form [formGroup]="form" (ngSubmit)="register()">
+  <form [formGroup]="form" (ngSubmit)="signUp()">
     <h2>Registrarse</h2>
     <p>Al crear tu cuenta en esta biblioteca online podrás acceder a la lista de libros registrados</p><br>
     <div class="input-group">
       <div class="input-field">
         <label for="email">Correo Electrónico:</label>
-        <input formControlName="correo" type="email" id="email" required>
+        <input formControlName="email" type="email" id="email" required>
       </div>
       <div class="input-field">
         <label for="username">Nombre de usuario:</label>
-        <input formControlName="user" type="text" id="username" required>
+        <input formControlName="username" type="text" id="username" required>
       </div>
     </div>
     <div class="input-group">
       <div class="input-field">
         <label for="firstName">Nombre:</label>
-        <input formControlName="nombre" type="text" id="firstName" required>
+        <input formControlName="firstName" type="text" id="firstName" required>
       </div>
       <div class="input-field">
         <label for="lastName">Apellido:</label>
-        <input formControlName="apellido" type="text" id="lastName" required>
+        <input formControlName="lastName" type="text" id="lastName" required>
       </div>
     </div>
     <div class="input-group">
@@ -45,11 +45,11 @@
     <div class="input-group">
       <div class="input-field">
         <label for="phone">Teléfono:</label>
-        <input formControlName="celular" type="tel" id="phone" required>
+        <input formControlName="phone" type="tel" id="phone" required>
       </div>
       <div class="input-field">
         <label for="location">Ubicación:</label>
-        <input formControlName="ubicacion" type="text" id="location" required>
+        <input formControlName="location" type="text" id="location" required>
       </div>
     </div>
     <div class="input-group">
